@@ -7,8 +7,11 @@ USE jobsdb;
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'jobscheduler123' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 
--- Create jobs table if it doesn't exist
-CREATE TABLE IF NOT EXISTS jobs (
+-- Drop and recreate table to fix schema issues
+DROP TABLE IF EXISTS jobs;
+
+-- Create jobs table with correct column sizes
+CREATE TABLE jobs (
     id INT AUTO_INCREMENT PRIMARY KEY,
     taskName VARCHAR(255) NOT NULL,
     payload JSON,
