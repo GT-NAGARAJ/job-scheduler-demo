@@ -34,7 +34,7 @@ services:
       - DB_USER=${DB_USER:-root}
       - DB_PASS=${DB_PASS:-jobscheduler123}
       - DB_NAME=${DB_NAME:-jobsdb}
-      - WEBHOOK_URL=${WEBHOOK_URL:-https://whe40975874e11735078.free.beeceptor.com}
+      - WEBHOOK_URL=${WEBHOOK_URL:-https://webhook.site/a3f70284-73b1-4cc1-8eb9-644a40f8145f}
       - JWT_SECRET=${JWT_SECRET:-your-jwt-secret-key}
     ports:
       - "${BACKEND_PORT:-4000}:4000"
