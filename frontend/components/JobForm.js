@@ -20,7 +20,8 @@ const JobForm = ({ onJobCreated }) => {
       try {
         parsedPayload = JSON.parse(payload);
       } catch (error) {
-        alert('Invalid JSON payload');
+        alert('Invalid JSON payload. Please check your JSON syntax.');
+        setIsSubmitting(false);
         return;
       }
 
@@ -28,7 +29,7 @@ const JobForm = ({ onJobCreated }) => {
       const response = await fetch(`${API}/jobs`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ taskName, payload: parsedPayload, priority })
+        body: JSON.stringify({ taskName: taskName.trim(), payload: parsedPayload, priority })
       });
 
       if (response.ok) {
@@ -36,9 +37,13 @@ const JobForm = ({ onJobCreated }) => {
         setPayload('{}');
         setPriority('Medium');
         onJobCreated?.();
+      } else {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.error || 'Failed to create job'}`);
       }
     } catch (error) {
       console.error('Error creating job:', error);
+      alert('Network error. Please check your connection and try again.');
     } finally {
       setIsSubmitting(false);
     }
